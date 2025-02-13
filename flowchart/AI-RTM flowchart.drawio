@@ -1,0 +1,338 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9" pages="2">
+  <diagram id="N0T3FDUk33J9Olfhj91r" name="Page-2">
+    <mxGraphModel dx="880" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-1" value="Recruiter Uploads Job Description" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="269" y="20" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-2" value="spaCy Analyzes JD" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="304" y="171" width="189" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-3" value="Candidate Applies" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="31" y="32" width="188" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-4" value="spaCy Parses Resume" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="171" width="210" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-5" value="Fetch LinkedIn Profile" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="579" y="32" width="217" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-6" value="Verify Data Consistency" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="573" y="171" width="228" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-7" value="DeepSeek Matches Candidate" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="269" y="316" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-8" value="AI Matching Using DeepSeek" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="269" y="467" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-9" value="Scikit-learn Clustering" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="290" y="635" width="219" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-10" value="ChromaDB Stores Candidate Embeddings" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="269" y="762" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-11" value="Recruiter Dashboard" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="296" y="913" width="205" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-12" value="Recruiter Filters &amp; Shortlists" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="269" y="1058" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-13" value="Candidate Selection" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="297" y="1209" width="203" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-14" value="Extract Requirements" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-1" target="JEYY5C1yVXIsMTf-1X0e-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-15" value="Upload Resume" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-3" target="JEYY5C1yVXIsMTf-1X0e-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-16" value="Scrapy Extracts Data" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-5" target="JEYY5C1yVXIsMTf-1X0e-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-17" value="Extract Key Information" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.01;entryY=-0.01;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-4" target="JEYY5C1yVXIsMTf-1X0e-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="125" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-18" value="Job Requirement Data" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=-0.01;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-2" target="JEYY5C1yVXIsMTf-1X0e-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-19" value="Validate Candidate Information" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=1;entryY=0.01;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-6" target="JEYY5C1yVXIsMTf-1X0e-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="688" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-20" value="Match Candidates" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=-0.01;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-7" target="JEYY5C1yVXIsMTf-1X0e-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-21" value="Cultural &amp; Skill Analysis" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-8" target="JEYY5C1yVXIsMTf-1X0e-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-22" value="Generate Match Score" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-9" target="JEYY5C1yVXIsMTf-1X0e-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-23" value="Retrieve Best Matches" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-10" target="JEYY5C1yVXIsMTf-1X0e-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-24" value="View Matches &amp; Insights" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-11" target="JEYY5C1yVXIsMTf-1X0e-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JEYY5C1yVXIsMTf-1X0e-25" value="Final Hiring Decision" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="JEYY5C1yVXIsMTf-1X0e-12" target="JEYY5C1yVXIsMTf-1X0e-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="-w1NbwR8LRfe99w2T8JC" name="AI-RTM">
+    <mxGraphModel dx="880" dy="3906" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-1" value="" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="844" y="-910" width="326" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-2" value="User: Interacts with Career Chatbot" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="287" y="-3150" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-3" value="Chatbot: Requests Resume Upload&#xa;Disclaimer: Valid Format (PDF or DOCX, within file size limit)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="287" y="-3022" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-4" value="User: Uploads Resume" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="308" y="-2894" width="218" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-5" value="Is resume format valid and size?" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="306" y="-2767" width="221" height="221" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-6" value="Chatbot: Invalid format, please re-upload correct format" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="140" y="-2473" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-7" value="Chatbot: Extracts Skills" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="-2461" width="227" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-8" value="AI: Matches Resume with Job Listings, Matching Jobs Found?" style="rhombus;strokeWidth=2;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="459" y="-2345" width="209" height="209" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-9" value="Chatbot: No matching jobs found" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="278" y="-2064" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-10" value="Chatbot: Lists Jobs &amp; Asks to Apply" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="588" y="-2064" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-11" value="User Wants to Apply?" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="617" y="-1936" width="203" height="203" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-12" value="Chatbot: Let us know if you need help!" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="453" y="-1660" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-13" value="User: Selects Job" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="763" y="-1648" width="183" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-14" value="Valid Job Selected?" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="759" y="-1532" width="191" height="191" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-15" value="Chatbot: Please select a valid job" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="569" y="-1268" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-16" value="Chatbot: Confirm application?" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="879" y="-1268" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-17" value="User: Confirms" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="926" y="-1140" width="166" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-18" value="Chatbot: Thanks for applying! Our team will get back to you soon" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="879" y="-1011" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-19" value="Store Application in Database" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="879" y="-883" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-20" value="Notify Recruiter" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="922" y="-755" width="174" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-21" value="Recruiter Dashboard: Display Applications" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="879" y="-651" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-22" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-2" target="MPSvw7zb6-KHjmYNRLud-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-23" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-3" target="MPSvw7zb6-KHjmYNRLud-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-24" value="Valid Format?" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-4" target="MPSvw7zb6-KHjmYNRLud-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-27" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-7" target="MPSvw7zb6-KHjmYNRLud-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-30" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-10" target="MPSvw7zb6-KHjmYNRLud-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-33" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-13" target="MPSvw7zb6-KHjmYNRLud-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-36" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-16" target="MPSvw7zb6-KHjmYNRLud-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-37" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-17" target="MPSvw7zb6-KHjmYNRLud-18">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-38" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-18" target="MPSvw7zb6-KHjmYNRLud-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-39" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-19" target="MPSvw7zb6-KHjmYNRLud-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MPSvw7zb6-KHjmYNRLud-40" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-20" target="MPSvw7zb6-KHjmYNRLud-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-14" target="MPSvw7zb6-KHjmYNRLud-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="-1440" as="sourcePoint" />
+            <mxPoint x="660" y="-1440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="699" y="-1436" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-5" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-6" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="610" y="-1830" as="sourcePoint" />
+            <mxPoint x="557" y="-1662" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="557" y="-1834" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-7" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-8" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.465;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1" target="MPSvw7zb6-KHjmYNRLud-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="459" y="-2242" as="sourcePoint" />
+            <mxPoint x="399" y="-2070" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="399" y="-2242" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-9" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-10" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.465;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="-2651" as="sourcePoint" />
+            <mxPoint x="240" y="-2473" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="240" y="-2656" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-11" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-12" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.621;entryY=-0.019;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="MPSvw7zb6-KHjmYNRLud-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="526" y="-2657" as="sourcePoint" />
+            <mxPoint x="626" y="-2657" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="591" y="-2657" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-13" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-16" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.465;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="668" y="-2242" as="sourcePoint" />
+            <mxPoint x="728" y="-2064" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="728" y="-2242" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-17" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="MPSvw7zb6-KHjmYNRLud-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="824.5" y="-1820" as="sourcePoint" />
+            <mxPoint x="884.5" y="-1648" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="885" y="-1834" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-19" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-20" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="950" y="-1436" as="sourcePoint" />
+            <mxPoint x="1010" y="-1268" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1010" y="-1436" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PS3omV95MLZfpFX8VFj2-21" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PS3omV95MLZfpFX8VFj2-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Sdhcxc5S9ohFY9NPNsz-1" value="&lt;span id=&quot;docs-internal-guid-0896d25c-7fff-311c-dc6e-5fba6103afdb&quot;&gt;&lt;h1 style=&quot;line-height:1.38;text-indent: 36pt;margin-top:24pt;margin-bottom:6pt;&quot; dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-family: Arial, sans-serif; background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;u&gt;&lt;i&gt;AI-Driven Recruitment and Talent Matching Using DeepSeek&lt;/i&gt;&lt;/u&gt;&lt;/font&gt;&lt;/span&gt;&lt;/h1&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="130" y="-3290" width="510" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
