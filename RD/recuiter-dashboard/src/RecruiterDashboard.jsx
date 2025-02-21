@@ -19,8 +19,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Badge,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Popover from "@mui/material/Popover";
 
 const RecruiterDashboard = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -30,6 +33,9 @@ const RecruiterDashboard = () => {
   const [jobDescription, setJobDescription] = useState("");
   const [requiredSkills, setRequiredSkills] = useState("");
   const [yearsOfExperience, setYearsOfExperience] = useState("");
+  const [newApplications, setNewApplications] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [seenApplications, setSeenApplications] = useState(new Set());
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -91,7 +97,6 @@ const RecruiterDashboard = () => {
           method: "DELETE",
         }
       );
-      console.log(jobId);
 
       if (!response.ok) {
         throw new Error("Failed to delete job");
@@ -109,21 +114,47 @@ const RecruiterDashboard = () => {
         throw new Error("Failed to fetch resumes");
       }
       const data = await response.json();
-      console.log(data);
+      const seenApps = new Set(
+        JSON.parse(localStorage.getItem("seenApplications") || "[]")
+      );
 
+      const newApps = data.filter((app) => !seenApps.has(app.id));
       setApplications(data);
+      setNewApplications(newApps);
+      setSeenApplications(seenApps);
     } catch (error) {
       console.error("Error fetching resumes:", error);
     }
   };
+
+  const handleNotificationClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationClose = () => {
+    setAnchorEl(null);
+    const updatedSeenApps = new Set([
+      ...seenApplications,
+      ...newApplications.map((app) => app.id),
+    ]);
+
+    localStorage.setItem(
+      "seenApplications",
+      JSON.stringify([...updatedSeenApps])
+    );
+
+    setSeenApplications(updatedSeenApps);
+    setNewApplications([]);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "notification-popover" : undefined;
 
   const handleViewResume = async (resumeId) => {
     try {
       const metadataResponse = await fetch(
         `http://localhost:8000/applications/${resumeId}`
       );
-      console.log(metadataResponse);
-
       if (!metadataResponse.ok) {
         throw new Error("Failed to fetch resume metadata");
       }
@@ -135,19 +166,35 @@ const RecruiterDashboard = () => {
       if (!response.ok) {
         throw new Error("Failed to fetch resume");
       }
-      console.log(response);
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      // a.download = `resume_${resumeId}.pdf`; // Adjust the filename as needed
-      a.download = metadata.filename; // Adjust the filename as needed
+      a.download = metadata.filename;
       document.body.appendChild(a);
       a.click();
       a.remove();
     } catch (error) {
       console.error("Error downloading resume:", error);
+    }
+  };
+
+  const handleDeleteApplications = async (app_id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/applications/delete/${app_id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete applications");
+      }
+      fetchApplications();
+    } catch (error) {
+      console.error("Error deleting applications:", error);
     }
   };
 
@@ -158,6 +205,37 @@ const RecruiterDashboard = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Recruiter Dashboard
           </Typography>
+          <IconButton color="inherit" onClick={handleNotificationClick}>
+            <Badge badgeContent={newApplications.length} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleNotificationClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Paper sx={{ p: 2, minWidth: 250 }}>
+              <Typography variant="h6">New Applications</Typography>
+              {newApplications.length > 0 ? (
+                <List>
+                  {newApplications.map((app) => (
+                    <ListItem key={app.id}>
+                      <ListItemText
+                        primary={app.filename}
+                        secondary={app.job_title}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                <Typography>No new applications</Typography>
+              )}
+            </Paper>
+          </Popover>
         </Toolbar>
       </AppBar>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -250,7 +328,7 @@ const RecruiterDashboard = () => {
           </Paper>
         )}
         {tabValue === 2 && (
-          <Paper elevation={3} sx={{ p: 3, maxWidth: 800, margin: "auto" }}>
+          <Paper elevation={3} sx={{ p: 3, maxWidth: 900, margin: "auto" }}>
             <Typography variant="h6" gutterBottom>
               Resumes Submitted
             </Typography>
@@ -270,6 +348,9 @@ const RecruiterDashboard = () => {
                     <TableCell>
                       <strong>Download Link</strong>
                     </TableCell>
+                    <TableCell>
+                      <strong>Delete</strong>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -284,6 +365,16 @@ const RecruiterDashboard = () => {
                           onClick={() => handleViewResume(app.id)}
                         >
                           Download
+                        </Button>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          style={{ backgroundColor: "#FF0000" }}
+                          onClick={() => handleDeleteApplications(app.id)}
+                        >
+                          Delete
                         </Button>
                       </TableCell>
                     </TableRow>

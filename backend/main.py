@@ -5,17 +5,15 @@ import requests
 import io
 import textract
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 import shutil
 import os
 import re
 import chromadb
-from chromadb.config import Settings
-from sklearn.feature_extraction.text import TfidfVectorizer
-import numpy as np
 import psycopg2
-from flask import Flask, jsonify, send_file
+import asyncio
+import time
 
 app = FastAPI()
 
@@ -32,10 +30,11 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 DEEPSEEK_API_URL = "http://localhost:11434/api/generate"
 
-process_ended = False
 waiting_for_job_selection = False
 waiting_for_confirmation = False
-global order
+last_activity_time = None
+session_expired = False
+SESSION_TIMEOUT = 300
 
 # Initialize Chroma client
 try:
@@ -45,10 +44,8 @@ except Exception as e:
     print(f"Error initializing Chroma DB client: {e}")
     raise
 
-# Create or load a collection for job openings
 collection = client.get_or_create_collection(name="resumes")
 
-# Pydantic model for job opening.
 CHROMA_DB_URL = "http://localhost:9000/job-openings/"
 
 class JobOpening(BaseModel):
@@ -58,70 +55,18 @@ class JobOpening(BaseModel):
     required_skills: str
     years_of_experience: str    
 
-JOB_DESCRIPTION = [
-    {
-        "title": "Front-End Developer",
-        "description": "Designs and develops user interfaces for web applications, ensuring responsiveness and seamless user experience.",
-        "required_skills": ["HTML", "CSS", "JavaScript", "React.js", "Vue.js", "responsive design", "REST APIs", "Git"],
-        "experience_required": "1-3 years"
-    },
-    {
-        "title": "Back-End Developer",
-        "description": "Builds and maintains the server-side logic, databases, and APIs for web applications.",
-        "required_skills": ["Node.js", "Python (Django/Flask)", "Java (Spring Boot)", "SQL", "NoSQL", "authentication (JWT, OAuth)", "cloud services (AWS, Firebase)"],
-        "experience_required": "2-5 years"
-    },
-    {
-        "title": "Full-Stack Developer",
-        "description": "Works on both front-end and back-end development to create end-to-end web applications.",
-        "required_skills": ["React.js", "Angular", "Node.js", "Django", "REST APIs", "databases (MySQL, MongoDB)", "CI/CD"],
-        "experience_required": "3-6 years"
-    },
-    {
-        "title": "Software Engineer",
-        "description": "Designs, develops, tests, and maintains software applications for various platforms.",
-        "required_skills": ["Java", "Python", "C++", "software design patterns", "data structures & algorithms", "debugging"],
-        "experience_required": "2-5 years"
-    },
-    {
-        "title": "Mobile App Developer",
-        "description": "Develops mobile applications for iOS and Android platforms.",
-        "required_skills": ["Flutter", "React Native", "Swift (iOS)", "Kotlin (Android)", "Firebase", "RESTful APIs"],
-        "experience_required": "1-4 years"
-    },
-    {
-        "title": "DevOps Engineer",
-        "description": "Manages CI/CD pipelines, cloud deployments, and infrastructure automation.",
-        "required_skills": ["Docker", "Kubernetes", "Jenkins", "AWS/GCP", "Linux", "Terraform", "Ansible"],
-        "experience_required": "3-6 years"
-    },
-    {
-        "title": "Data Scientist",
-        "description": "Analyzes large datasets to build predictive models and extract business insights.",
-        "required_skills": ["Python", "R", "SQL", "machine learning (Scikit-Learn, TensorFlow)", "data visualization (Tableau, Matplotlib)"],
-        "experience_required": "2-5 years"
-    },
-    {
-        "title": "Cybersecurity Analyst",
-        "description": "Protects IT infrastructure, networks, and data from cyber threats and vulnerabilities.",
-        "required_skills": ["Network security", "penetration testing", "ethical hacking", "SIEM tools", "firewall management"],
-        "experience_required": "1-4 years"
-    },
-    {
-        "title": "UI/UX Designer",
-        "description": "Creates engaging user interfaces and improves user experience based on research and testing.",
-        "required_skills": ["Figma", "Adobe XD", "Sketch", "wireframing", "user research", "prototyping", "usability testing"],
-        "experience_required": "1-3 years"
-    },
-    {
-        "title": "Cloud Engineer",
-        "description": "Designs, deploys, and manages cloud-based infrastructure and services.",
-        "required_skills": ["AWS (EC2, S3, Lambda)", "Azure", "Google Cloud", "containerization (Docker, Kubernetes)", "Terraform"],
-        "experience_required": "3-6 years"
-    }
-]
 
-@app.get("/job-openings/", response_model=List[JobOpening])
+async def monitor_session():
+    """Monitor session inactivity after resume processing."""
+    global last_activity_time, session_expired
+    while True:
+        if last_activity_time and (time.time() - last_activity_time) > SESSION_TIMEOUT:
+            session_expired = True
+            print("Session expired. User must re-upload the resume.")
+            break
+        await asyncio.sleep(10)
+
+@app.get("/job-openings", response_model=List[JobOpening])
 def get_all_job_openings():
     try:
         response = requests.get(CHROMA_DB_URL)
@@ -161,7 +106,7 @@ def get_relevant_job_openings(resume_text, job_openings):
 
         results = collection.query(
             query_texts=[resume_text],
-            n_results=1
+            n_results=10
         )
 
         relevant_jobs = []
@@ -282,31 +227,29 @@ def process_llm_response(llm_response):
         if not json_match:
             return "Unexpected response format", []
         
-        response_data = json.loads(json_match.group())  # Load extracted JSON
+        response_data = json.loads(json_match.group())
         print("============== Processed Response =================\n", response_data)
 
         if response_data.get("status") == "invalid":
-            return "The provided document is invalid, please provide the right document", []
+            return "The provided document is invalid, please provide the right document", [], False
         elif response_data.get("status") == "no_match":
-            return "No match job is found", []
+            return "No match job is found", [], False
         elif response_data.get("status") == "match":
             matching_roles = response_data.get("matching_roles", [])
             
             job_list = "\n".join([f"{idx + 1}. {role['job_title']}" for idx, role in enumerate(matching_roles)])
             
             response = f"Based on your resume, these roles closely match your skills and experience. You may consider applying if any of them align with your career goals.\n\n{job_list}"
-            return response, matching_roles
+            return response, matching_roles, True
         else:
-            return "Unexpected response format", []
+            return "Unexpected response format", [], False
 
     except json.JSONDecodeError:
-        return "Unexpected response format", []
+        return "Unexpected response format", [], False
 
 def handle_user_response(user_input, matching_roles, order, file_path):
     print("=== User Input====\n", user_input)
-    global process_ended, waiting_for_job_selection, waiting_for_confirmation, selected_job
-    # if process_ended:
-    #     return None
+    global waiting_for_job_selection, waiting_for_confirmation, selected_job
     if waiting_for_job_selection:  
         return handle_job_selection(user_input, matching_roles)
 
@@ -315,7 +258,6 @@ def handle_user_response(user_input, matching_roles, order, file_path):
 
     elif user_input.lower() == "no":
         order = False
-        # process_ended = True
         return "Thank you for your time. Have a great day!", order
 
     elif user_input.lower() == "yes":
@@ -355,8 +297,10 @@ def confirm_application(user_input, selected_job, matching_roles, order, file_pa
     elif user_input.lower() == "no":
         waiting_for_confirmation = False
         waiting_for_job_selection = True
-        response, _ = process_llm_response(json.dumps({"status": "match", "matching_roles": matching_roles}))
-        return "No problem! Here are the available jobs again:\n\n" + response + "\n \n Please enter the number of the listed job you want to apply for:", order
+        job_list = "\n".join([f"{idx + 1}. {role['job_title']}" for idx, role in enumerate(matching_roles)])
+            
+        response = f"No Problem! Here are the available jobs:\n\n Based on your resume, these roles closely match your skills and experience. You may consider applying if any of them align with your career goals.\n\n{job_list}\n \n Please enter the number of the listed job you want to apply for:"
+        return response, order
     
     elif(user_input.lower() == "cancel"):
             return "Thank you for your time. Have a great day!", False
@@ -421,13 +365,11 @@ def store_resume_in_postgres(job_title, file_path):
     return "Thanks for applying! Our concent team will get back to you soon."
 
 
-@app.post("/upload")
+@app.post("/upload/")
 async def upload_pdf(file: UploadFile = File(None), text: str = Form(None)):
-    global order
-    formatted_response = None  
-    global matching_roles
+    global order, matching_roles, resume_path, last_activity_time, session_expired
+    formatted_response = None
     bot_response = None
-    global resume_path
     if(file):
         order = True
         file_path = os.path.join(UPLOAD_FOLDER, file.filename)
@@ -441,10 +383,17 @@ async def upload_pdf(file: UploadFile = File(None), text: str = Form(None)):
         # print(extracted_text)
 
         llm_response = send_to_llm(extracted_text[:10000])
-        formatted_response, matching_roles = process_llm_response(llm_response)
+        formatted_response, matching_roles, order = process_llm_response(llm_response)
+        asyncio.create_task(monitor_session())
+        last_activity_time = time.time()
         # print("\n===== Formatted LLM Response =====\n", formatted_response)
         # print("\n===== matching roles LLM Response =====\n", matching_roles)
     elif(order and text):
+        if session_expired:
+            return {"bot_response": "Session expired. Please re-upload your resume."}
+
+        last_activity_time = time.time()
+
         bot_response, order = handle_user_response(text, matching_roles, order, resume_path)
     else:
         return {"bot_response": "Please upload the resume."}
@@ -480,31 +429,6 @@ def get_resumes():
         })
 
     return JSONResponse(content=resumes_list)
-
-# @app.get("/applications/{resume_id}/download")
-# def download_resume(resume_id: int):
-#     conn = get_db_connection()
-#     if not conn:
-#         raise HTTPException(status_code=500, detail="Database connection failed")
-
-#     cursor = conn.cursor()
-#     query = "SELECT resume, filename FROM resumes WHERE id = %s"
-#     cursor.execute(query, (resume_id,))
-#     resume = cursor.fetchone()
-
-#     cursor.close()
-#     conn.close()
-
-#     if not resume:
-#         raise HTTPException(status_code=404, detail="Resume not found")
-
-#     # Stream the file to the client
-#     file_data = io.BytesIO(resume[0])  # resume[0] is the binary data
-#     return StreamingResponse(
-#         file_data,
-#         media_type="application/octet-stream",
-#         headers={"Content-Disposition": f"attachment; filename={resume[1]}"}
-#     )
 
 @app.get("/applications/{resume_id}/download")
 def download_resume(resume_id: int):
@@ -560,3 +484,19 @@ def get_resume_metadata(resume_id):
         })
     else:
         return JSONResponse(content={"error": "Resume not found"}, status_code=404)
+
+@app.delete('/applications/delete/{resume_id}')
+def delete_resueme(resume_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM resumes WHERE id = %s", (resume_id,))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        return {"message": "Application deleted successfully."}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

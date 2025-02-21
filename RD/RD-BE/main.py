@@ -1,8 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 import psycopg2
 from pydantic import BaseModel
 import chromadb
-from chromadb.config import Settings
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -32,7 +31,7 @@ class JobOpening(BaseModel):
     required_skills: str
     years_of_experience: str
 
-@app.post("/job-openings")
+@app.post("/job-openings/")
 def add_job_opening(job: JobOpening):
     metadata = {
         "job_title": job.job_title,
@@ -60,7 +59,7 @@ result = collection.query(
     )
 print(result)
 
-@app.get("/job-openings", response_model=List[JobOpening])
+@app.get("/job-openings/", response_model=List[JobOpening])
 def get_all_job_openings():
     results = collection.get()
     job_openings = []
