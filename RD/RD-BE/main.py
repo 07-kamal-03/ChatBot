@@ -52,13 +52,6 @@ def add_job_opening(job: JobOpening):
     print(result)
     return {"message": f"Job opening '{job.job_title}' added successfully!"}
 
-
-result = collection.query(
-        query_texts=["asdf"], 
-        n_results=1
-    )
-print(result)
-
 @app.get("/job-openings/", response_model=List[JobOpening])
 def get_all_job_openings():
     results = collection.get()
