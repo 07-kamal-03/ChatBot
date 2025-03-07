@@ -78,3 +78,14 @@
 from datetime import datetime
 
 print(datetime.now())
+
+
+tools = [
+    {
+        "name": "weather_api",
+        "description": "Gets weather data for a given city",
+        "parameters": {
+            "city": "The name of the city to get weather information for"
+        }
+    }
+]

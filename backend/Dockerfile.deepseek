@@ -1,0 +1,96 @@
+# # Use an official base image with Ollama installed
+# FROM ubuntu:latest
+
+# # Set environment variables
+# ENV DEBIAN_FRONTEND=noninteractive
+
+# # Install dependencies
+# RUN apt-get update && apt-get install -y \
+#     curl \
+#     ca-certificates \
+#     && rm -rf /var/lib/apt/lists/*
+
+# # Install Ollama
+# RUN curl -fsSL https://ollama.ai/install.sh | sh
+
+# # Expose the necessary port
+# EXPOSE 5000
+
+# # Run Ollama service and pull the model at runtime
+# CMD ollama serve & sleep 5 && ollama pull deepseek-r1:7b && wait
+
+# Use an official base image with Ollama installed
+FROM ubuntu:latest
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Ollama
+RUN curl -fsSL https://ollama.ai/install.sh | sh
+
+# Expose the necessary port
+EXPOSE 5000
+
+# Run Ollama service and check if model exists, pull if necessary
+CMD ollama serve & sleep 5 && ollama list | grep -q 'deepseek-r1:7b' || ollama pull deepseek-r1:7b && wait
+
+
+# FROM ubuntu:latest
+
+# # Set environment variables
+# ENV DEBIAN_FRONTEND=noninteractive
+
+# # Install dependencies
+# RUN apt-get update && apt-get install -y \
+#     curl \
+#     ca-certificates \
+#     socat \
+#     && rm -rf /var/lib/apt/lists/*
+
+# # Install Ollama
+# RUN curl -fsSL https://ollama.ai/install.sh | sh
+
+# # Expose the necessary port
+# EXPOSE 5000
+
+# # Run Ollama service and check if model exists, pull if necessary
+# CMD ollama serve & \
+#     sleep 5 && \
+#     ollama list | grep -q 'deepseek-r1:7b' || ollama pull deepseek-r1:7b && \
+#     socat TCP-LISTEN:5000,fork,reuseaddr TCP:localhost:11434 & \
+#     wait
+
+
+# FROM ubuntu:latest
+
+# # Set environment variables
+# ENV DEBIAN_FRONTEND=noninteractive
+
+# # Install dependencies
+# RUN apt-get update && apt-get install -y \
+#     curl \
+#     ca-certificates \
+#     socat \
+#     nginx \
+#     && rm -rf /var/lib/apt/lists/*
+
+# # Install Ollama
+# RUN curl -fsSL https://ollama.ai/install.sh | sh
+
+# # Copy Nginx configuration
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# # Expose the necessary port
+# EXPOSE 5000
+
+# # Run Ollama service, pull the model if necessary, and start Nginx
+# CMD ollama serve & \
+#     until ollama list | grep -q 'deepseek-r1:7b'; do sleep 5; ollama pull deepseek-r1:7b; done && \
+#     socat TCP-LISTEN:11434,fork,reuseaddr TCP:localhost:11434 & \
+#     nginx -g 'daemon off;'

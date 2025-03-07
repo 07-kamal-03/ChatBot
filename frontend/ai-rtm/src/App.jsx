@@ -1,4 +1,4 @@
-import Chatbot from "./components/chatBot"
+import Chatbot from "./components/chatBot.jsx"
 
 function App() {
 

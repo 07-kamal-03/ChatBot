@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-client-deployment
+  namespace: rtm-client-environment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: chatbot-web
+  template:
+    metadata:
+      labels:
+        component: chatbot-web
+    spec:
+      containers:
+        - name: chatbot-web
+          image: 07kamal03/chatbot-fe:v6.0
+          ports:
+            - containerPort: 5173
+          env:
+          #   - name: BACKEND_URL
+          #     value: "http://rtm-chatbot-server-service.rtm-client-environment.svc.cluster.local:8000/"
+            - name: BACKEND_URL
+              value: "http://localhost:8000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatbot-client-service
+  namespace: rtm-client-environment
+spec:
+  selector:
+    component: chatbot-web
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+

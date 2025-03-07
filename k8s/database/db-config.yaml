@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtm-db-deployment
+  namespace: rtm-client-environment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      containers:
+        - name: rtm-database
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-user
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: database_name
+          volumeMounts:
+            - name: postgres-database-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-database-storage
+          persistentVolumeClaim:
+            claimName: rtm-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rtm-db-service
+  namespace: rtm-client-environment
+spec:
+  selector:
+    component: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

@@ -77,7 +77,7 @@ def get_db_connection():
             dbname="chatbot_database",
             user="myuser",
             password="mypassword",
-            host="localhost",
+            host="http://rtm-db-service.rtm-client-environment.svc.cluster.local",
             port="5432"
         )
         print("Database connected successfully")

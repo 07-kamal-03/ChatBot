@@ -1,0 +1,11 @@
+aiohttp
+asyncpg
+chromadb
+fastapi
+pydantic
+requests
+uvicorn
+python-multipart
+six
+python-docx
+pdfminer.six

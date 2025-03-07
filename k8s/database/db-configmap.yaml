@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-configmap
+  namespace: rtm-client-environment
+data:
+  database_name: "chatbot_database"

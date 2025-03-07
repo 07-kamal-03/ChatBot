@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-client-deployment
+  namespace: rtm-client-environment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: dashboard-web
+  template:
+    metadata:
+      labels:
+        component: dashboard-web
+    spec:
+      containers:
+        - name: dashboard-web
+          image: 07kamal03/dashboard-fe:v7.0
+          ports:
+            - containerPort: 5174
+          env:
+            - name: DASHBOARD_URL
+              value: "http://localhost:9000/"
+            - name: CHATBOT_URL
+              value: "http://localhost:8000/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-client-service
+  namespace: rtm-client-environment
+spec:
+  selector:
+    component: dashboard-web
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5174
+      targetPort: 5174
+

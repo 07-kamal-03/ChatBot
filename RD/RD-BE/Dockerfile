@@ -1,0 +1,18 @@
+# Use an official Python runtime as a base image
+FROM python
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
+COPY main.py .
+
+# Expose the FastAPI port
+EXPOSE 9000
+
+# Run the FastAPI application
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000", "--reload"]
